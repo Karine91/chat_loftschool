@@ -14,15 +14,33 @@ app.use(express.static(__dirname + '/public'));
 let users = {};
 
 io.sockets.on('connection', function (client) {
-    users[client.id] = 'Anonim';
+    users[client.id] = 'Аноним';
     broadcast('user', users);
-    
+    broadcast('system', 'В чат вошел новый пользователь');
     client.on('message', function (message) {
+        try {
+            // проверяем сменил ли имя пользователь
+            if (users[client.id] !== message.name) {
+              broadcast('system', `Пользователь  ${users[client.id]} сменил имя на ${message.name}`);
+              users[client.id] = message.name;
+            }
+            
+            broadcast('message', message);
+            broadcast('user', users);
+        } catch(e) {
+            console.log(e);
+            client.disconnect();
+        }
+    });
 
+    client.on('disconnect', function(data) {
+        broadcast('system', `Чат покинул пользователь ${users[client.id]}`);
+        delete users[client.id];
+        client.broadcast.emit('user', users);
     });
 
     function broadcast(event, data) {
         client.emit(event, data);
-        client.broadcast.emit.apply(event, data);
+        client.broadcast.emit(event, data);
     }
 });

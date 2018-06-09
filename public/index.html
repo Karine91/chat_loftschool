@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <title>Пример чата</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <style>
+      body {
+        padding-top: 60px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="container" >
+      <div class="page-header">
+        <h1>Пример чата</h1>
+      </div>
+      <div class="row">
+        <div id="users" class="col-md-3">
+          <ul  class="nav nav-list well">
+            <li class="nav-header">Пользователи в чате</li>
+            <li>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-9">
+          <div class="wrapper">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th class="col-md-2">Никнейм</th>
+                  <th class="col-md-7">Сообщения</th>
+                </tr>
+              </thead>
+              <tbody id = "messages">
+              </tbody>
+            </table>
+          </div>
+          <div class="controls">
+            <form>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" id="msg_name" class="form-control"  placeholder="Ваш никнейм">
+                        </div>    
+                    </div>
+                    <div class="col-md-9">
+                        <div class="input-group">
+                            <input type="text" id="msg_txt" class="form-control col-md-6"  placeholder="Введите сообщение">
+                            <div class="input-group-btn">
+                                <button id="msg_btn" class="btn btn-primary">Send</button>  
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
